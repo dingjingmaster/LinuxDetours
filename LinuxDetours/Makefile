@@ -1,3 +1,4 @@
+CUR := $(shell pwd)
 UNAME := $(shell uname)
 UNAME_M := $(shell uname -m)
 
@@ -26,6 +27,9 @@ else
 		$(MAKE) linux_arm64
     endif
 endif
+
+demo_x64:
+	$(CXX) main.cpp -L . -ldetours64 -ldl -lpthread -lglog -Wl,-rpath=$(CUR) -D_AMD64_ -D_UNIX64 -o demo.run
 
 linux_x64:
 	$(CXX) $(CXX_FLAGS) $(CXX_DEFINES) $(SOURCES) $(TRAMPOLINE_X86) -D_AMD64_ -D_UNIX64 -o $(LIB_NAME)64.so	
